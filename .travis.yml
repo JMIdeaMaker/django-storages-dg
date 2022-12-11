@@ -1,0 +1,30 @@
+# https://travis-ci.org/jschneier/django-storages/
+sudo: false
+language: python
+
+python: "3.6"
+cache: pip
+
+env:
+  - TOXENV=py27-django111
+  - TOXENV=py34-django111
+  - TOXENV=py34-django20
+  - TOXENV=py36-django111
+  - TOXENV=py36-django20
+  - TOXENV=py36-djangomaster
+  - TOXENV=flake8
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: TOXENV=py36-djangomaster
+
+install:
+  - pip install --upgrade pip setuptools wheel
+  - pip install tox codecov
+
+script:
+  - tox
+
+after_success:
+  - codecov
